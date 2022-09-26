@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace OOP_lab_sheet_2
 {
@@ -10,11 +11,12 @@ namespace OOP_lab_sheet_2
     {
         static void Main(string[] args)
         {
-            string filepath = @"C: \Users\S00223854\OneDrive - Atlantic TU\OOP\OOP lab sheet 2\results.txt";
+            string filepath = @"C:\Users\S00223854\Downloads\results.txt";
+            
 
             try
             {
-                string[] fileContents = file.ReadAllLines(filepath);
+                string[] fileContents = File.ReadAllLines(filepath);
 
                 int totalPoints = 0;
                 int results = 0;
@@ -56,12 +58,18 @@ namespace OOP_lab_sheet_2
                     {
                         points = 0;
                     }
-                }
-            }
-            catch (Exception)
-            {
 
-                throw;
+                    totalPoints += points;
+                    
+                }
+
+                File.AppendAllText(filepath, Environment.NewLine + "totalPoints: " + totalPoints.ToString());
+
+            }
+            catch (IOException io)
+            {
+                Console.WriteLine(io.Message);
+                //throw;
             }
         }
     }
